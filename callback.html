@@ -103,6 +103,11 @@
 
         if (authCode) {
             codeDisplay.textContent = 'Authorization Code: ' + authCode;
+            
+            // Redirect to dashboard after 1 second
+            setTimeout(function() {
+                window.location.href = '/dashboard';
+            }, 1000);
         } else if (error) {
             errorDisplay.style.display = 'block';
             errorDisplay.textContent = `Error: ${error} - ${errorDescription || 'No description provided'}`;

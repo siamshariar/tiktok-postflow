@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoMate - Dashboard</title>
+    <link rel="icon" href="icon.png" type="image/png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
+        .navbar { background: white; padding: 16px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between; }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: #111; }
+        .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
+        .nav-actions { display: flex; align-items: center; gap: 16px; }
+        .nav-actions span { font-size: 14px; color: #666; }
+        .btn-logout { background: #fff; color: #e74c3c; border: 2px solid #e74c3c; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; }
+        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .profile-card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 20px; align-items: center; }
+        .profile-card img { width: 72px; height: 72px; border-radius: 50%; }
+        .profile-info h2 { font-size: 20px; color: #111; }
+        .profile-info p { font-size: 13px; color: #888; margin-top: 4px; }
+        .verified-badge { display: inline-block; background: #00C853; color: white; font-size: 11px; padding: 2px 8px; border-radius: 12px; margin-left: 8px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+        .stat-card { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .stat-card .number { font-size: 28px; font-weight: 700; color: #111; }
+        .stat-card .label { font-size: 12px; color: #888; margin-top: 4px; }
+        .section-title { font-size: 18px; font-weight: 600; color: #111; margin-bottom: 16px; }
+        .upload-area { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .upload-box { border: 2px dashed #ddd; border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .upload-box:hover { border-color: #000; background: #fafafa; }
+        .upload-box .icon { font-size: 48px; margin-bottom: 12px; }
+        .upload-box p { font-size: 14px; color: #666; }
+        .upload-row { display: flex; gap: 12px; margin-top: 16px; }
+        .upload-row input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+        .btn { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
+        .btn-draft { background: #000; color: white; }
+        .btn-publish { background: #00C853; color: white; }
+        .btn-draft:hover { background: #333; }
+        .btn-publish:hover { background: #00a844; }
+        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .video-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .video-thumb { width: 100%; height: 200px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .video-info { padding: 12px; }
+        .video-info p { font-size: 13px; color: #333; font-weight: 500; }
+        .video-info span { font-size: 11px; color: #999; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="icon.png" alt="VideoMate">
+            VideoMate
+        </div>
+        <div class="nav-actions">
+            <span>👋 Welcome, @creator_demo</span>
+            <a href="/" class="btn-logout">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- Profile Card (user.info.basic + user.info.profile) -->
+        <div class="profile-card">
+            <img src="icon.png" alt="Avatar">
+            <div class="profile-info">
+                <h2>Demo Creator <span class="verified-badge">✓ Verified</span></h2>
+                <p>📝 Content creator sharing tips and tutorials daily. Follow for more!</p>
+                <p style="font-size:12px;color:#999;">🔗 tiktok.com/@creator_demo</p>
+            </div>
+        </div>
+
+        <!-- Stats (user.info.stats) -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">12.5K</div>
+                <div class="label">Followers</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">247</div>
+                <div class="label">Following</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">89.2K</div>
+                <div class="label">Total Likes</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">34</div>
+                <div class="label">Videos</div>
+            </div>
+        </div>
+
+        <!-- Upload Section (video.upload + video.publish) -->
+        <div class="upload-area">
+            <div class="section-title">📤 Upload Video</div>
+            <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+                <div class="icon">🎬</div>
+                <p>Click to select a video file</p>
+                <p style="font-size:11px;color:#bbb;">MP4, MOV accepted</p>
+            </div>
+            <input type="file" id="fileInput" accept="video/*" style="display:none;" onchange="handleFileSelect(event)">
+            <div class="upload-row">
+                <input type="text" placeholder="Write a caption...">
+                <button class="btn btn-draft" onclick="uploadDraft()">📝 Save as Draft</button>
+                <button class="btn btn-publish" onclick="publishNow()">🚀 Publish Now</button>
+            </div>
+            <p id="uploadStatus" style="font-size:12px;color:#00C853;margin-top:8px;display:none;">✅ Video uploaded successfully!</p>
+        </div>
+
+        <!-- Video Gallery (video.list) -->
+        <div class="section-title">📺 Your Published Videos</div>
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="video-thumb">🎥</div>
+                <div class="video-info">
+                    <p>My latest tutorial</p>
+                    <span>12.3K views · 2 days ago</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumb">🎬</div>
+                <div class="video-info">
+                    <p>Behind the scenes</p>
+                    <span>8.1K views · 5 days ago</span>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-thumb">📱</div>
+                <div class="video-info">
+                    <p>Quick tips compilation</p>
+                    <span>15.7K views · 1 week ago</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                document.querySelector('.upload-box p').textContent = '📁 ' + file.name;
+            }
+        }
+        function uploadDraft() {
+            const status = document.getElementById('uploadStatus');
+            status.textContent = '📝 Video saved as draft in TikTok!';
+            status.style.display = 'block';
+            status.style.color = '#00C853';
+        }
+        function publishNow() {
+            const status = document.getElementById('uploadStatus');
+            status.textContent = '🚀 Video published directly to TikTok profile!';
+            status.style.display = 'block';
+            status.style.color = '#00C853';
+        }
+    </script>
+
+</body>
+</html>
