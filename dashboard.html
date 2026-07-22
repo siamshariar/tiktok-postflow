@@ -99,6 +99,13 @@
                 <p style="font-size:11px;color:#bbb;">MP4, MOV accepted</p>
             </div>
             <input type="file" id="fileInput" accept="video/*" style="display:none;" onchange="handleFileSelect(event)">
+            <div class="upload-row" style="margin-bottom:12px;">
+                <select id="privacySelect" style="padding:12px;border-radius:8px;border:1px solid #ddd;width:100%;font-size:14px;">
+                    <option value="SELF_ONLY">🔒 Only Me</option>
+                    <option value="MUTUAL_FOLLOW_FRIENDS">👥 Friends</option>
+                    <option value="PUBLIC_TO_EVERYONE">🌍 Public</option>
+                </select>
+            </div>
             <div class="upload-row">
                 <input type="text" placeholder="Write a caption...">
                 <button class="btn btn-draft" onclick="uploadDraft()">📝 Save as Draft</button>
