@@ -78,24 +78,24 @@
             VideoMate
         </div>
         <div class="nav-actions">
-            <span>👋 Welcome, <strong>@creator_demo</strong></span>
+            <span>👋 Welcome, <strong>@quranrecitersmedia</strong></span>
             <a href="/" class="btn-logout">Logout</a>
         </div>
     </nav>
 
     <div class="container">
 
-        <!-- Profile Card -->
+        <!-- Profile Card (user.info.basic + user.info.profile) -->
         <div class="profile-card">
             <img src="icon.png" alt="Avatar">
             <div class="profile-info">
-                <h2>Demo Creator <span class="verified-badge">✓ Verified</span></h2>
-                <p>📝 Content creator sharing tips and tutorials daily.</p>
-                <p style="font-size:12px;color:#999;">🔗 tiktok.com/@creator_demo</p>
+                <h2>Quran Reciters Media</h2>
+                <p>📖 Beautiful Quran Recitations</p>
+                <p style="font-size:12px;color:#999;">🔗 tiktok.com/@quranrecitersmedia</p>
             </div>
         </div>
 
-        <!-- Stats -->
+        <!-- Stats (user.info.stats) -->
         <div class="stats-grid">
             <div class="stat-card"><div class="number">12.5K</div><div class="label">Followers</div></div>
             <div class="stat-card"><div class="number">247</div><div class="label">Following</div></div>
@@ -103,15 +103,15 @@
             <div class="stat-card"><div class="number">34</div><div class="label">Videos</div></div>
         </div>
 
-        <!-- Upload Section -->
+        <!-- Upload Section (video.upload + video.publish) -->
         <div class="upload-area">
             <div class="section-title">📤 Share to TikTok</div>
 
-            <!-- Video Selection -->
+            <!-- Video File Selection -->
             <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                 <div class="icon">🎬</div>
                 <p id="fileLabel">Click to select a video file</p>
-                <p style="font-size:11px;color:#bbb;">MP4, MOV accepted (max 10 min)</p>
+                <p style="font-size:11px;color:#bbb;">MP4, MOV accepted (max 10 minutes)</p>
             </div>
             <input type="file" id="fileInput" accept="video/*" style="display:none;" onchange="handleFileSelect(event)">
 
@@ -120,13 +120,13 @@
                 <video id="videoPreview" controls></video>
             </div>
 
-            <!-- Caption -->
+            <!-- Caption / Title -->
             <div class="form-group">
                 <label for="captionInput">Caption <span class="required-star">*</span></label>
                 <textarea id="captionInput" placeholder="Write a caption for your video..."></textarea>
             </div>
 
-            <!-- Privacy Status - NO default selection -->
+            <!-- Privacy Status - NO default value -->
             <div class="form-group">
                 <label for="privacySelect">Privacy Status <span class="required-star">*</span></label>
                 <select id="privacySelect" onchange="onPrivacyChange()">
@@ -135,10 +135,10 @@
                     <option value="MUTUAL_FOLLOW_FRIENDS">👥 Friends</option>
                     <option value="PUBLIC_TO_EVERYONE">🌍 Public</option>
                 </select>
-                <p class="hint" id="privacyHint" style="display:none;color:#e67e22;">⚠ Branded content cannot be set to private.</p>
+                <p class="hint" id="privacyHint" style="display:none;color:#e67e22;">⚠ Branded content visibility cannot be set to private.</p>
             </div>
 
-            <!-- Interaction Settings - all unchecked by default -->
+            <!-- Interaction Settings - unchecked by default -->
             <div class="form-group">
                 <label>Interaction Settings</label>
                 <div class="checkbox-group">
@@ -148,7 +148,7 @@
                 </div>
             </div>
 
-            <!-- Commercial Content Toggle - OFF by default -->
+            <!-- Commercial Content Disclosure - OFF by default -->
             <div class="toggle-row">
                 <span class="toggle-label">Commercial Content Disclosure</span>
                 <label class="toggle-switch">
@@ -185,7 +185,7 @@
             </div>
         </div>
 
-        <!-- Video Gallery -->
+        <!-- Video Gallery (video.list) -->
         <div class="section-title">📺 Your Published Videos</div>
         <div class="video-grid">
             <div class="video-card">
@@ -205,7 +205,7 @@
     </div>
 
     <script>
-        // File selection
+        // File selection with preview
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file) {
@@ -218,7 +218,7 @@
             checkPublishReady();
         }
 
-        // Commercial toggle
+        // Commercial Content toggle
         function toggleCommercial() {
             const isOn = document.getElementById('commercialToggle').checked;
             document.getElementById('commercialOptions').classList.toggle('show', isOn);
@@ -231,13 +231,13 @@
             checkPublishReady();
         }
 
-        // Privacy change
+        // Privacy dropdown change
         function onPrivacyChange() {
             updateCommercial();
             checkPublishReady();
         }
 
-        // Update commercial labels & privacy restrictions
+        // Update commercial labels & privacy rules
         function updateCommercial() {
             const yourBrand = document.getElementById('yourBrand').checked;
             const brandedContent = document.getElementById('brandedContent').checked;
@@ -266,7 +266,7 @@
             checkPublishReady();
         }
 
-        // Update declaration text
+        // Update declaration text based on commercial options
         function updateDeclaration() {
             const brandedContent = document.getElementById('brandedContent').checked;
             const box = document.getElementById('declarationBox');
@@ -277,7 +277,7 @@
             }
         }
 
-        // Enable/disable publish button
+        // Enable/disable Publish button
         function checkPublishReady() {
             const hasFile = document.getElementById('fileInput').files.length > 0;
             const hasPrivacy = document.getElementById('privacySelect').value !== '';
@@ -295,21 +295,21 @@
             document.getElementById('publishBtn').disabled = !canPublish;
         }
 
-        // Add listeners
+        // Add event listeners
         ['allowComment', 'allowDuet', 'allowStitch', 'yourBrand', 'brandedContent'].forEach(id => {
             document.getElementById(id).addEventListener('change', checkPublishReady);
         });
         document.getElementById('privacySelect').addEventListener('change', checkPublishReady);
         document.getElementById('captionInput').addEventListener('input', checkPublishReady);
 
-        // Draft upload
+        // Save as Draft
         function uploadDraft() {
             const status = document.getElementById('uploadStatus');
             status.textContent = '📝 Video saved as draft in TikTok! Open TikTok app to edit and post.';
             status.className = 'status-msg success';
         }
 
-        // Publish
+        // Publish to TikTok
         function publishNow() {
             const caption = document.getElementById('captionInput').value || 'Untitled';
             const privacy = document.getElementById('privacySelect').value;
