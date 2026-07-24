@@ -47,6 +47,8 @@
         .toggle-switch input:checked + .toggle-slider:before { transform: translateX(22px); }
         .commercial-options { display: none; margin-bottom: 16px; padding: 12px; background: #fff3f3; border-radius: 8px; border: 1px solid #ffcdd2; }
         .commercial-options.show { display: block; }
+        .commercial-hint { display: none; font-size: 11px; color: #fe2c55; margin-top: 8px; font-weight: 500; }
+        .commercial-options.show .commercial-hint.missing { display: block; }
         .declaration-box { background: #FFF9C4; padding: 12px 16px; border-radius: 8px; font-size: 12px; color: #555; margin-bottom: 16px; text-align: center; border: 1px solid #FFE082; }
         .btn-row { display: flex; gap: 12px; }
         .btn { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
@@ -72,6 +74,7 @@
 </head>
 <body>
 
+    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-brand">
             <img src="icon.png" alt="VideoMate">
@@ -103,7 +106,7 @@
             <div class="stat-card"><div class="number">34</div><div class="label">Videos</div></div>
         </div>
 
-        <!-- Upload Section (video.upload + video.publish) -->
+        <!-- Upload Section -->
         <div class="upload-area">
             <div class="section-title">📤 Share to TikTok</div>
 
@@ -115,18 +118,18 @@
             </div>
             <input type="file" id="fileInput" accept="video/*" style="display:none;" onchange="handleFileSelect(event)">
 
-            <!-- Video Preview -->
+            <!-- Video Preview (Requirement 5a) -->
             <div class="preview-area" id="previewArea">
                 <video id="videoPreview" controls></video>
             </div>
 
-            <!-- Caption / Title -->
+            <!-- Caption / Title (Requirement 2a) -->
             <div class="form-group">
                 <label for="captionInput">Caption <span class="required-star">*</span></label>
                 <textarea id="captionInput" placeholder="Write a caption for your video..."></textarea>
             </div>
 
-            <!-- Privacy Status - NO default value -->
+            <!-- Privacy Status - NO default value (Requirement 2b) -->
             <div class="form-group">
                 <label for="privacySelect">Privacy Status <span class="required-star">*</span></label>
                 <select id="privacySelect" onchange="onPrivacyChange()">
@@ -138,7 +141,7 @@
                 <p class="hint" id="privacyHint" style="display:none;color:#e67e22;">⚠ Branded content visibility cannot be set to private.</p>
             </div>
 
-            <!-- Interaction Settings - unchecked by default -->
+            <!-- Interaction Settings - unchecked by default (Requirement 2c) -->
             <div class="form-group">
                 <label>Interaction Settings</label>
                 <div class="checkbox-group">
@@ -148,7 +151,7 @@
                 </div>
             </div>
 
-            <!-- Commercial Content Disclosure - OFF by default -->
+            <!-- Commercial Content Disclosure - OFF by default (Requirement 3a) -->
             <div class="toggle-row">
                 <span class="toggle-label">Commercial Content Disclosure</span>
                 <label class="toggle-switch">
@@ -157,7 +160,7 @@
                 </label>
             </div>
 
-            <!-- Commercial Options (hidden until toggle ON) -->
+            <!-- Commercial Options (Requirement 3a, 3b) -->
             <div class="commercial-options" id="commercialOptions">
                 <p style="font-size:13px;font-weight:600;margin-bottom:8px;">This content promotes:</p>
                 <div class="checkbox-group">
@@ -165,20 +168,23 @@
                     <label><input type="checkbox" id="brandedContent" onchange="updateCommercial()"> Branded Content <span style="font-size:11px;color:#888;">(Paid partnership)</span></label>
                 </div>
                 <p id="commercialLabel" style="font-size:11px;color:#888;margin-top:4px;"></p>
+                <p class="commercial-hint missing" id="commercialHint">
+                    ⚠ You need to indicate if your content promotes yourself, a third party, or both.
+                </p>
             </div>
 
-            <!-- Declaration Text -->
+            <!-- Declaration Text (Requirement 2c NOTE, 4) -->
             <div class="declaration-box" id="declarationBox">
                 By posting, you agree to TikTok's <strong>Music Usage Confirmation</strong>.
             </div>
 
-            <!-- Action Buttons -->
+            <!-- Action Buttons (Requirement 5c - explicit consent) -->
             <div class="btn-row">
                 <button class="btn btn-draft" onclick="uploadDraft()">📝 Save as Draft</button>
                 <button class="btn btn-publish" id="publishBtn" onclick="publishNow()" disabled>🚀 Publish to TikTok</button>
             </div>
 
-            <!-- Status Messages -->
+            <!-- Status Messages (Requirement 5d, 5e) -->
             <div class="status-msg" id="uploadStatus"></div>
             <div class="status-msg info" id="processingNote" style="display:none;">
                 ⏳ Your content is processing. It may take a few minutes to appear on your profile.
@@ -205,7 +211,7 @@
     </div>
 
     <script>
-        // File selection with preview
+        // ========== File Selection with Preview (Requirement 5a) ==========
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file) {
@@ -218,7 +224,7 @@
             checkPublishReady();
         }
 
-        // Commercial Content toggle
+        // ========== Commercial Content Toggle (Requirement 3a) ==========
         function toggleCommercial() {
             const isOn = document.getElementById('commercialToggle').checked;
             document.getElementById('commercialOptions').classList.toggle('show', isOn);
@@ -231,21 +237,24 @@
             checkPublishReady();
         }
 
-        // Privacy dropdown change
+        // ========== Privacy Dropdown Change ==========
         function onPrivacyChange() {
             updateCommercial();
             checkPublishReady();
         }
 
-        // Update commercial labels & privacy rules
+        // ========== Update Commercial Labels & Privacy Rules (Requirement 3a, 3b) ==========
         function updateCommercial() {
             const yourBrand = document.getElementById('yourBrand').checked;
             const brandedContent = document.getElementById('brandedContent').checked;
             const label = document.getElementById('commercialLabel');
             const privacySelect = document.getElementById('privacySelect');
             const privacyHint = document.getElementById('privacyHint');
+            const commercialHint = document.getElementById('commercialHint');
+            const commercialOn = document.getElementById('commercialToggle').checked;
             const selfOption = privacySelect.querySelector('option[value="SELF_ONLY"]');
 
+            // Update label
             if (brandedContent) {
                 label.textContent = '📌 Your video will be labeled as "Paid partnership"';
                 privacyHint.style.display = 'block';
@@ -262,11 +271,19 @@
                 privacyHint.style.display = 'none';
                 if (selfOption) selfOption.disabled = false;
             }
+
+            // Show hint if toggle ON but nothing selected (Requirement 3a hover notice)
+            if (commercialOn && !yourBrand && !brandedContent) {
+                commercialHint.classList.add('missing');
+            } else {
+                commercialHint.classList.remove('missing');
+            }
+
             updateDeclaration();
             checkPublishReady();
         }
 
-        // Update declaration text based on commercial options
+        // ========== Update Declaration Text (Requirement 2c NOTE, 4) ==========
         function updateDeclaration() {
             const brandedContent = document.getElementById('brandedContent').checked;
             const box = document.getElementById('declarationBox');
@@ -277,7 +294,7 @@
             }
         }
 
-        // Enable/disable Publish button
+        // ========== Enable/Disable Publish Button (Requirement 3a, 5c) ==========
         function checkPublishReady() {
             const hasFile = document.getElementById('fileInput').files.length > 0;
             const hasPrivacy = document.getElementById('privacySelect').value !== '';
@@ -295,21 +312,21 @@
             document.getElementById('publishBtn').disabled = !canPublish;
         }
 
-        // Add event listeners
+        // ========== Event Listeners ==========
         ['allowComment', 'allowDuet', 'allowStitch', 'yourBrand', 'brandedContent'].forEach(id => {
             document.getElementById(id).addEventListener('change', checkPublishReady);
         });
         document.getElementById('privacySelect').addEventListener('change', checkPublishReady);
         document.getElementById('captionInput').addEventListener('input', checkPublishReady);
 
-        // Save as Draft
+        // ========== Save as Draft ==========
         function uploadDraft() {
             const status = document.getElementById('uploadStatus');
             status.textContent = '📝 Video saved as draft in TikTok! Open TikTok app to edit and post.';
             status.className = 'status-msg success';
         }
 
-        // Publish to TikTok
+        // ========== Publish to TikTok (Requirement 5c, 5d) ==========
         function publishNow() {
             const caption = document.getElementById('captionInput').value || 'Untitled';
             const privacy = document.getElementById('privacySelect').value;
@@ -333,6 +350,8 @@
             const status = document.getElementById('uploadStatus');
             status.textContent = msg;
             status.className = 'status-msg success';
+            
+            // Show processing note (Requirement 5d)
             document.getElementById('processingNote').style.display = 'block';
         }
     </script>
