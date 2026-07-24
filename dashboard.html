@@ -13,8 +13,8 @@
         .nav-brand img { width: 36px; height: 36px; border-radius: 8px; }
         .nav-actions { display: flex; align-items: center; gap: 16px; }
         .nav-actions span { font-size: 14px; color: #666; }
-        .btn-logout { background: #fff; color: #e74c3c; border: 2px solid #e74c3c; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; }
-        .container { max-width: 1000px; margin: 30px auto; padding: 0 20px; }
+        .btn-logout { background: #fff; color: #e74c3c; border: 2px solid #e74c3c; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; text-decoration: none; }
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
         .profile-card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 20px; align-items: center; }
         .profile-card img { width: 72px; height: 72px; border-radius: 50%; }
         .profile-info h2 { font-size: 20px; color: #111; }
@@ -26,23 +26,48 @@
         .stat-card .label { font-size: 12px; color: #888; margin-top: 4px; }
         .section-title { font-size: 18px; font-weight: 600; color: #111; margin-bottom: 16px; }
         .upload-area { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .upload-box { border: 2px dashed #ddd; border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .upload-box { border: 2px dashed #ddd; border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; transition: all 0.2s; }
         .upload-box:hover { border-color: #000; background: #fafafa; }
-        .upload-box .icon { font-size: 48px; margin-bottom: 12px; }
+        .upload-box .icon { font-size: 48px; margin-bottom: 8px; }
         .upload-box p { font-size: 14px; color: #666; }
-        .upload-row { display: flex; gap: 12px; margin-top: 16px; }
-        .upload-row input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-        .btn { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
-        .btn-draft { background: #000; color: white; }
-        .btn-publish { background: #00C853; color: white; }
-        .btn-draft:hover { background: #333; }
-        .btn-publish:hover { background: #00a844; }
-        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; font-family: inherit; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .checkbox-group { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+        .checkbox-group label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: #333; cursor: pointer; }
+        .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .toggle-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 12px; background: #fafafa; border-radius: 8px; }
+        .toggle-label { font-size: 13px; font-weight: 600; color: #333; }
+        .toggle-switch { position: relative; width: 48px; height: 26px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; border-radius: 26px; transition: 0.3s; }
+        .toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
+        .toggle-switch input:checked + .toggle-slider { background: #fe2c55; }
+        .toggle-switch input:checked + .toggle-slider:before { transform: translateX(22px); }
+        .commercial-options { display: none; margin-bottom: 16px; padding: 12px; background: #fff3f3; border-radius: 8px; border: 1px solid #ffcdd2; }
+        .commercial-options.show { display: block; }
+        .declaration-box { background: #FFF9C4; padding: 12px 16px; border-radius: 8px; font-size: 12px; color: #555; margin-bottom: 16px; text-align: center; border: 1px solid #FFE082; }
+        .btn-row { display: flex; gap: 12px; }
+        .btn { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .btn-draft { background: #000; color: white; flex: 1; }
+        .btn-draft:hover:not(:disabled) { background: #333; }
+        .btn-publish { background: #fe2c55; color: white; flex: 2; }
+        .btn-publish:hover:not(:disabled) { background: #e0264a; }
+        .status-msg { font-size: 13px; margin-top: 12px; display: none; padding: 10px; border-radius: 8px; }
+        .status-msg.success { background: #E8F5E9; color: #2E7D32; display: block; }
+        .status-msg.info { background: #E3F2FD; color: #1565C0; display: block; }
+        .preview-area { margin-top: 12px; text-align: center; display: none; }
+        .preview-area video { max-width: 100%; max-height: 250px; border-radius: 8px; }
+        .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
         .video-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .video-thumb { width: 100%; height: 200px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 48px; }
+        .video-thumb { width: 100%; height: 150px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 36px; }
         .video-info { padding: 12px; }
         .video-info p { font-size: 13px; color: #333; font-weight: 500; }
         .video-info span { font-size: 11px; color: #999; }
+        .hint { font-size: 11px; color: #999; margin-top: 4px; }
+        .required-star { color: #fe2c55; }
     </style>
 </head>
 <body>
@@ -53,113 +78,262 @@
             VideoMate
         </div>
         <div class="nav-actions">
-            <span>👋 Welcome, @creator_demo</span>
+            <span>👋 Welcome, <strong>@creator_demo</strong></span>
             <a href="/" class="btn-logout">Logout</a>
         </div>
     </nav>
 
     <div class="container">
 
-        <!-- Profile Card (user.info.basic + user.info.profile) -->
+        <!-- Profile Card -->
         <div class="profile-card">
             <img src="icon.png" alt="Avatar">
             <div class="profile-info">
                 <h2>Demo Creator <span class="verified-badge">✓ Verified</span></h2>
-                <p>📝 Content creator sharing tips and tutorials daily. Follow for more!</p>
+                <p>📝 Content creator sharing tips and tutorials daily.</p>
                 <p style="font-size:12px;color:#999;">🔗 tiktok.com/@creator_demo</p>
             </div>
         </div>
 
-        <!-- Stats (user.info.stats) -->
+        <!-- Stats -->
         <div class="stats-grid">
-            <div class="stat-card">
-                <div class="number">12.5K</div>
-                <div class="label">Followers</div>
-            </div>
-            <div class="stat-card">
-                <div class="number">247</div>
-                <div class="label">Following</div>
-            </div>
-            <div class="stat-card">
-                <div class="number">89.2K</div>
-                <div class="label">Total Likes</div>
-            </div>
-            <div class="stat-card">
-                <div class="number">34</div>
-                <div class="label">Videos</div>
-            </div>
+            <div class="stat-card"><div class="number">12.5K</div><div class="label">Followers</div></div>
+            <div class="stat-card"><div class="number">247</div><div class="label">Following</div></div>
+            <div class="stat-card"><div class="number">89.2K</div><div class="label">Total Likes</div></div>
+            <div class="stat-card"><div class="number">34</div><div class="label">Videos</div></div>
         </div>
 
-        <!-- Upload Section (video.upload + video.publish) -->
+        <!-- Upload Section -->
         <div class="upload-area">
-            <div class="section-title">📤 Upload Video</div>
+            <div class="section-title">📤 Share to TikTok</div>
+
+            <!-- Video Selection -->
             <div class="upload-box" onclick="document.getElementById('fileInput').click()">
                 <div class="icon">🎬</div>
-                <p>Click to select a video file</p>
-                <p style="font-size:11px;color:#bbb;">MP4, MOV accepted</p>
+                <p id="fileLabel">Click to select a video file</p>
+                <p style="font-size:11px;color:#bbb;">MP4, MOV accepted (max 10 min)</p>
             </div>
             <input type="file" id="fileInput" accept="video/*" style="display:none;" onchange="handleFileSelect(event)">
-            <div class="upload-row" style="margin-bottom:12px;">
-                <select id="privacySelect" style="padding:12px;border-radius:8px;border:1px solid #ddd;width:100%;font-size:14px;">
+
+            <!-- Video Preview -->
+            <div class="preview-area" id="previewArea">
+                <video id="videoPreview" controls></video>
+            </div>
+
+            <!-- Caption -->
+            <div class="form-group">
+                <label for="captionInput">Caption <span class="required-star">*</span></label>
+                <textarea id="captionInput" placeholder="Write a caption for your video..."></textarea>
+            </div>
+
+            <!-- Privacy Status - NO default selection -->
+            <div class="form-group">
+                <label for="privacySelect">Privacy Status <span class="required-star">*</span></label>
+                <select id="privacySelect" onchange="onPrivacyChange()">
+                    <option value="">-- Select privacy level --</option>
                     <option value="SELF_ONLY">🔒 Only Me</option>
                     <option value="MUTUAL_FOLLOW_FRIENDS">👥 Friends</option>
                     <option value="PUBLIC_TO_EVERYONE">🌍 Public</option>
                 </select>
+                <p class="hint" id="privacyHint" style="display:none;color:#e67e22;">⚠ Branded content cannot be set to private.</p>
             </div>
-            <div class="upload-row">
-                <input type="text" placeholder="Write a caption...">
+
+            <!-- Interaction Settings - all unchecked by default -->
+            <div class="form-group">
+                <label>Interaction Settings</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="allowComment"> Allow Comment</label>
+                    <label><input type="checkbox" id="allowDuet"> Allow Duet</label>
+                    <label><input type="checkbox" id="allowStitch"> Allow Stitch</label>
+                </div>
+            </div>
+
+            <!-- Commercial Content Toggle - OFF by default -->
+            <div class="toggle-row">
+                <span class="toggle-label">Commercial Content Disclosure</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="commercialToggle" onchange="toggleCommercial()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- Commercial Options (hidden until toggle ON) -->
+            <div class="commercial-options" id="commercialOptions">
+                <p style="font-size:13px;font-weight:600;margin-bottom:8px;">This content promotes:</p>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="yourBrand" onchange="updateCommercial()"> Your Brand <span style="font-size:11px;color:#888;">(Promotional content)</span></label>
+                    <label><input type="checkbox" id="brandedContent" onchange="updateCommercial()"> Branded Content <span style="font-size:11px;color:#888;">(Paid partnership)</span></label>
+                </div>
+                <p id="commercialLabel" style="font-size:11px;color:#888;margin-top:4px;"></p>
+            </div>
+
+            <!-- Declaration Text -->
+            <div class="declaration-box" id="declarationBox">
+                By posting, you agree to TikTok's <strong>Music Usage Confirmation</strong>.
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="btn-row">
                 <button class="btn btn-draft" onclick="uploadDraft()">📝 Save as Draft</button>
-                <button class="btn btn-publish" onclick="publishNow()">🚀 Publish Now</button>
+                <button class="btn btn-publish" id="publishBtn" onclick="publishNow()" disabled>🚀 Publish to TikTok</button>
             </div>
-            <p id="uploadStatus" style="font-size:12px;color:#00C853;margin-top:8px;display:none;">✅ Video uploaded successfully!</p>
+
+            <!-- Status Messages -->
+            <div class="status-msg" id="uploadStatus"></div>
+            <div class="status-msg info" id="processingNote" style="display:none;">
+                ⏳ Your content is processing. It may take a few minutes to appear on your profile.
+            </div>
         </div>
 
-        <!-- Video Gallery (video.list) -->
+        <!-- Video Gallery -->
         <div class="section-title">📺 Your Published Videos</div>
         <div class="video-grid">
             <div class="video-card">
                 <div class="video-thumb">🎥</div>
-                <div class="video-info">
-                    <p>My latest tutorial</p>
-                    <span>12.3K views · 2 days ago</span>
-                </div>
+                <div class="video-info"><p>My latest tutorial</p><span>12.3K views · 2 days ago</span></div>
             </div>
             <div class="video-card">
                 <div class="video-thumb">🎬</div>
-                <div class="video-info">
-                    <p>Behind the scenes</p>
-                    <span>8.1K views · 5 days ago</span>
-                </div>
+                <div class="video-info"><p>Behind the scenes</p><span>8.1K views · 5 days ago</span></div>
             </div>
             <div class="video-card">
                 <div class="video-thumb">📱</div>
-                <div class="video-info">
-                    <p>Quick tips compilation</p>
-                    <span>15.7K views · 1 week ago</span>
-                </div>
+                <div class="video-info"><p>Quick tips compilation</p><span>15.7K views · 1 week ago</span></div>
             </div>
         </div>
 
     </div>
 
     <script>
+        // File selection
         function handleFileSelect(event) {
             const file = event.target.files[0];
             if (file) {
-                document.querySelector('.upload-box p').textContent = '📁 ' + file.name;
+                document.getElementById('fileLabel').textContent = '📁 ' + file.name;
+                const previewArea = document.getElementById('previewArea');
+                const videoPreview = document.getElementById('videoPreview');
+                previewArea.style.display = 'block';
+                videoPreview.src = URL.createObjectURL(file);
+            }
+            checkPublishReady();
+        }
+
+        // Commercial toggle
+        function toggleCommercial() {
+            const isOn = document.getElementById('commercialToggle').checked;
+            document.getElementById('commercialOptions').classList.toggle('show', isOn);
+            if (!isOn) {
+                document.getElementById('yourBrand').checked = false;
+                document.getElementById('brandedContent').checked = false;
+            }
+            updateCommercial();
+            updateDeclaration();
+            checkPublishReady();
+        }
+
+        // Privacy change
+        function onPrivacyChange() {
+            updateCommercial();
+            checkPublishReady();
+        }
+
+        // Update commercial labels & privacy restrictions
+        function updateCommercial() {
+            const yourBrand = document.getElementById('yourBrand').checked;
+            const brandedContent = document.getElementById('brandedContent').checked;
+            const label = document.getElementById('commercialLabel');
+            const privacySelect = document.getElementById('privacySelect');
+            const privacyHint = document.getElementById('privacyHint');
+            const selfOption = privacySelect.querySelector('option[value="SELF_ONLY"]');
+
+            if (brandedContent) {
+                label.textContent = '📌 Your video will be labeled as "Paid partnership"';
+                privacyHint.style.display = 'block';
+                if (selfOption) selfOption.disabled = true;
+                if (privacySelect.value === 'SELF_ONLY') {
+                    privacySelect.value = '';
+                }
+            } else if (yourBrand) {
+                label.textContent = '📌 Your video will be labeled as "Promotional content"';
+                privacyHint.style.display = 'none';
+                if (selfOption) selfOption.disabled = false;
+            } else {
+                label.textContent = '';
+                privacyHint.style.display = 'none';
+                if (selfOption) selfOption.disabled = false;
+            }
+            updateDeclaration();
+            checkPublishReady();
+        }
+
+        // Update declaration text
+        function updateDeclaration() {
+            const brandedContent = document.getElementById('brandedContent').checked;
+            const box = document.getElementById('declarationBox');
+            if (brandedContent) {
+                box.innerHTML = 'By posting, you agree to TikTok\'s <strong>Branded Content Policy</strong> and <strong>Music Usage Confirmation</strong>.';
+            } else {
+                box.innerHTML = 'By posting, you agree to TikTok\'s <strong>Music Usage Confirmation</strong>.';
             }
         }
+
+        // Enable/disable publish button
+        function checkPublishReady() {
+            const hasFile = document.getElementById('fileInput').files.length > 0;
+            const hasPrivacy = document.getElementById('privacySelect').value !== '';
+            const commercialOn = document.getElementById('commercialToggle').checked;
+            const yourBrand = document.getElementById('yourBrand').checked;
+            const brandedContent = document.getElementById('brandedContent').checked;
+
+            let canPublish = hasFile && hasPrivacy;
+
+            // If commercial toggle ON, at least one option required
+            if (commercialOn) {
+                canPublish = canPublish && (yourBrand || brandedContent);
+            }
+
+            document.getElementById('publishBtn').disabled = !canPublish;
+        }
+
+        // Add listeners
+        ['allowComment', 'allowDuet', 'allowStitch', 'yourBrand', 'brandedContent'].forEach(id => {
+            document.getElementById(id).addEventListener('change', checkPublishReady);
+        });
+        document.getElementById('privacySelect').addEventListener('change', checkPublishReady);
+        document.getElementById('captionInput').addEventListener('input', checkPublishReady);
+
+        // Draft upload
         function uploadDraft() {
             const status = document.getElementById('uploadStatus');
-            status.textContent = '📝 Video saved as draft in TikTok!';
-            status.style.display = 'block';
-            status.style.color = '#00C853';
+            status.textContent = '📝 Video saved as draft in TikTok! Open TikTok app to edit and post.';
+            status.className = 'status-msg success';
         }
+
+        // Publish
         function publishNow() {
+            const caption = document.getElementById('captionInput').value || 'Untitled';
+            const privacy = document.getElementById('privacySelect').value;
+            const allowComment = document.getElementById('allowComment').checked;
+            const allowDuet = document.getElementById('allowDuet').checked;
+            const allowStitch = document.getElementById('allowStitch').checked;
+            const commercialToggle = document.getElementById('commercialToggle').checked;
+            const yourBrand = document.getElementById('yourBrand').checked;
+            const brandedContent = document.getElementById('brandedContent').checked;
+
+            const labels = {
+                'SELF_ONLY': '🔒 Only Me',
+                'MUTUAL_FOLLOW_FRIENDS': '👥 Friends',
+                'PUBLIC_TO_EVERYONE': '🌍 Public'
+            };
+
+            let msg = `🚀 Published to TikTok (${labels[privacy] || privacy})`;
+            if (commercialToggle && brandedContent) msg += ' [Paid partnership]';
+            else if (commercialToggle && yourBrand) msg += ' [Promotional content]';
+
             const status = document.getElementById('uploadStatus');
-            status.textContent = '🚀 Video published directly to TikTok profile!';
-            status.style.display = 'block';
-            status.style.color = '#00C853';
+            status.textContent = msg;
+            status.className = 'status-msg success';
+            document.getElementById('processingNote').style.display = 'block';
         }
     </script>
 
