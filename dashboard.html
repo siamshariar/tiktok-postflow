@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VideoMate - Dashboard</title>
+    <title>VideoMate - Creator Dashboard</title>
     <link rel="icon" href="icon.png" type="image/png">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,6 +15,13 @@
         .nav-actions span { font-size: 14px; color: #666; }
         .btn-logout { background: #fff; color: #e74c3c; border: 2px solid #e74c3c; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; text-decoration: none; }
         .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        
+        /* Connected Account Banner */
+        .connected-banner { background: #E8F5E9; padding: 14px 20px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #2E7D32; border: 1px solid #C8E6C9; }
+        .connected-banner strong { color: #111; }
+        .connected-banner a { color: #1565C0; font-weight: 600; text-decoration: none; }
+        .connected-banner a:hover { text-decoration: underline; }
+        
         .profile-card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; gap: 20px; align-items: center; }
         .profile-card img { width: 72px; height: 72px; border-radius: 50%; }
         .profile-info h2 { font-size: 20px; color: #111; }
@@ -81,29 +88,35 @@
             VideoMate
         </div>
         <div class="nav-actions">
-            <span>👋 Welcome, <strong>@quranrecitersmedia</strong></span>
+            <span>👋 Welcome, <strong id="creatorHandle">@creator_handle</strong></span>
             <a href="/" class="btn-logout">Logout</a>
         </div>
     </nav>
 
     <div class="container">
 
+        <!-- Connected Account Banner -->
+        <div class="connected-banner">
+            <span>✅ TikTok account connected: <strong id="connectedAccount">@creator_handle</strong></span>
+            <a href="#" onclick="alert('Switch account feature — multiple creators supported')">🔄 Switch Account</a>
+        </div>
+
         <!-- Profile Card (user.info.basic + user.info.profile) -->
         <div class="profile-card">
-            <img src="icon.png" alt="Avatar">
+            <img src="icon.png" alt="Avatar" id="creatorAvatar">
             <div class="profile-info">
-                <h2>Quran Reciters Media</h2>
-                <p>📖 Beautiful Quran Recitations</p>
-                <p style="font-size:12px;color:#999;">🔗 tiktok.com/@quranrecitersmedia</p>
+                <h2 id="creatorName">Creator Name <span class="verified-badge">✓ Verified</span></h2>
+                <p id="creatorBio">📝 Creator bio goes here. Any TikTok creator can connect.</p>
+                <p style="font-size:12px;color:#999;">🔗 <span id="creatorLink">tiktok.com/@creator_handle</span></p>
             </div>
         </div>
 
         <!-- Stats (user.info.stats) -->
         <div class="stats-grid">
-            <div class="stat-card"><div class="number">12.5K</div><div class="label">Followers</div></div>
-            <div class="stat-card"><div class="number">247</div><div class="label">Following</div></div>
-            <div class="stat-card"><div class="number">89.2K</div><div class="label">Total Likes</div></div>
-            <div class="stat-card"><div class="number">34</div><div class="label">Videos</div></div>
+            <div class="stat-card"><div class="number" id="statFollowers">--</div><div class="label">Followers</div></div>
+            <div class="stat-card"><div class="number" id="statFollowing">--</div><div class="label">Following</div></div>
+            <div class="stat-card"><div class="number" id="statLikes">--</div><div class="label">Total Likes</div></div>
+            <div class="stat-card"><div class="number" id="statVideos">--</div><div class="label">Videos</div></div>
         </div>
 
         <!-- Upload Section -->
@@ -254,7 +267,6 @@
             const commercialOn = document.getElementById('commercialToggle').checked;
             const selfOption = privacySelect.querySelector('option[value="SELF_ONLY"]');
 
-            // Update label
             if (brandedContent) {
                 label.textContent = '📌 Your video will be labeled as "Paid partnership"';
                 privacyHint.style.display = 'block';
@@ -272,7 +284,6 @@
                 if (selfOption) selfOption.disabled = false;
             }
 
-            // Show hint if toggle ON but nothing selected (Requirement 3a hover notice)
             if (commercialOn && !yourBrand && !brandedContent) {
                 commercialHint.classList.add('missing');
             } else {
@@ -303,8 +314,6 @@
             const brandedContent = document.getElementById('brandedContent').checked;
 
             let canPublish = hasFile && hasPrivacy;
-
-            // If commercial toggle ON, at least one option required
             if (commercialOn) {
                 canPublish = canPublish && (yourBrand || brandedContent);
             }
@@ -350,8 +359,6 @@
             const status = document.getElementById('uploadStatus');
             status.textContent = msg;
             status.className = 'status-msg success';
-            
-            // Show processing note (Requirement 5d)
             document.getElementById('processingNote').style.display = 'block';
         }
     </script>
